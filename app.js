@@ -232,6 +232,9 @@ class LinkedList3 {
         this.head = null
         this.size = 0
     }
+    removeLast() {
+
+    }
 }
 
 const ll = new LinkedList3
@@ -247,3 +250,34 @@ ll.getAt(0)
 ll.getAt(20)
 ll.removeAt(0)
 ll.printListData()
+//////////////////////simple example of doubly linked list node///////////////////////////////////////
+class CCNode {
+    constructor(value) {
+      this.data = value;
+      this.prev = null
+      this.next = null
+    }
+  }
+
+const head = new CCNode(10)
+const middle = new CCNode(20)
+const last = new CCNode(30)
+
+head.prev = null
+head.next = middle
+middle.prev = head
+middle.next = last
+last.prev = middle
+last.next = null
+
+let firstToLast = head
+while(firstToLast != null) {
+    console.log(firstToLast.data)
+    firstToLast = firstToLast.next
+}
+
+let lastToFirst = last
+while(lastToFirst != null) {
+    console.log(lastToFirst.data)
+    lastToFirst = lastToFirst.prev
+}
