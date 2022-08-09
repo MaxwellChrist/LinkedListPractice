@@ -1,20 +1,94 @@
-const Node = function(value, next = null) {
-    this.value = value,
-    this.next = next
+// Practice with singly linked lists
+class ListNode {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
 }
 
-const LinkedList = function() {
-    this.head = null;
-    this.size = 0;
+class SinglyLinkedList {
+    constructor() {
+        this.head = null; // Initialization should be null because I'm starting with no data
+        this.size = 0; // This is to keep track of the size of the list
+    }
+    insertAtHead(data) {
+        const newNode = new ListNode(data) // This is the new head to the new list node
+        if (!this.head) {
+            this.head = newNode; // if the list is empty, nothing else needs to be run
+        } else {
+            newNode.next = this.head;
+            this.head = newNode; // if the list is not empty, the new head needs to point to the old head
+        }
+        this.size++;
+    }
+    removeHead() {
+        if (this.head === null) {
+            return
+        } else {
+            this.head = this.head.next;
+            this.size--
+        }
+    }
+    deleteByValue(value) {
+        if(this.head.data === value) {
+            return this.removeHead();
+        }
+        let currentNode = this.head.next;
+        let previousNode = this.head
+        while(currentNode) {
+            if (currentNode.data === value) break
+            previousNode = currentNode
+            currentNode = currentNode.next
+        }
+        if (currentNode) {
+            previousNode.next = currentNode.next
+            this.size--
+        }
+    }
+    find(value) {
+        if(this.head.data === value) {
+            return this.head
+        }
+        let currentNode = this.head
+        while(currentNode) {
+            if (currentNode.data === value) {
+                return currentNode
+            } else {
+                currentNode = currentNode.next
+            }
+            return null
+        }
+    }
+    insertAfterValue(value,data) {
+        const previousNode = this.find(value)
+        if(previousNode) {
+            const newNode = new ListNode(data)
+            newNode.next = previousNode.next
+            previousNode.next = newNode
+            this.size++
+        }
+    }
+    print() {
+        let node = this.head
+        let str = `${node.data}`
+        while(node.next) {
+            str += ` ==> ${node.next.data}`
+            node = node.next
+        }
+        console.log(str)
+    }
 }
 
-LinkedList.prototype.addNodeAtHead = function(value) {
-    this.head = new Node(value, this.head)
-    this.size++
-    return;
-}
-
-const linked_list = new LinkedList()
-linked_list.addNodeAtHead(1)
-linked_list.addNodeAtHead(5)
-console.log(linked_list)
+let newList = new SinglyLinkedList();
+newList.insertAtHead(1)
+newList.insertAtHead(2)
+newList.insertAtHead(3)
+newList.insertAtHead(4)
+newList.insertAtHead(5)
+newList.print()
+newList.removeHead()
+newList.print()
+newList.insertAfterValue(4, 6)
+newList.print()
+newList.deleteByValue(2)
+newList.print()
