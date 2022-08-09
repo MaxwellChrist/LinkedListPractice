@@ -92,3 +92,46 @@ newList.insertAfterValue(4, 6)
 newList.print()
 newList.deleteByValue(2)
 newList.print()
+
+///////The tutorial below is where I'm exploring creating a list node with a function instead of a class///////////////
+function createMeANode(value) {
+    return {
+        value,
+        next: null
+    }
+}
+
+let myFirstNode = createMeANode("Hello World");
+console.log(myFirstNode)
+
+class LinkedList2 {
+    constructor() {
+        this.head = null
+        this.tail = null
+        this.length = 0
+    }
+    insert(value) {
+        this.length++
+        let newNode = createMeANode(value)
+        if (this.tail !== null) {
+            this.tail.next = newNode
+            this.tail = newNode
+            return newNode
+        }
+        this.head = this.tail = newNode
+        return newNode
+    }
+    print() {
+        let current = this.head
+        while(current) {
+            console.log(current.value)
+            current = current.next
+        }
+    }
+}
+
+const myOtherLinkedList = new LinkedList2
+myOtherLinkedList.insert(5)
+// myOtherLinkedList.insert("Hello, my name is Max")
+// myOtherLinkedList.insert(false)
+myOtherLinkedList.print()
